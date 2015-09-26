@@ -18,12 +18,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/grails-app/controllers/smart_transport/RideController.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/grails-app/controllers/smart_transport/UserController.groovy">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/grails-app/domain/smart_transport/Location.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/grails-app/domain/smart_transport/Ride.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/grails-app/domain/smart_transport/RideStatus.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/grails-app/domain/smart_transport/RideType.groovy">
           <value>
             <set />
           </value>
@@ -43,12 +63,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/grails-app/jobs/smart_transport/RideFinderJob.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/grails-app/utils/GrailsDomainExclusionStrategy.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/grails-app/utils/smart_transport/GrailsDomainExclusionStrategy.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/grails-app/utils/smart_transport/RideIdAndRideType.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/grails-app/utils/smart_transport/RideUtil.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/grails-app/utils/smart_transport/Util.java">
           <value>
             <set />
           </value>
