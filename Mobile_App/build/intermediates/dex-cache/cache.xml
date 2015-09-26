@@ -2,46 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jar="/home/rohan/.gradle/caches/modules-2/files-2.1/com.googlecode.json-simple/json-simple/1.1/5e303a03d04e6788dddfa3655272580ae0fc13bb/json-simple-1.1.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-f84178de43c843822abcb355ee6f42bedfca9e4a.jar" />
-    </item>
-    <item
-        jar="/home/rohan/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/6.1.0/63735f48b82bcd24cdd33821342428252eb1ca5a/butterknife-6.1.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="63735f48b82bcd24cdd33821342428252eb1ca5a">
-        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/butterknife-6.1.0-c17666973e41113254c9f3b4c60556db1f5459f3.jar" />
-    </item>
-    <item
-        jar="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/exploded-aar/com.android.support/design/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/classes-fcbc11fecf94421c1fdca9243099387a1093bf88.jar" />
-    </item>
-    <item
-        jar="/home/rohan/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-5c67b6896f38bf275f93fa70fe32def27bc63633.jar" />
-    </item>
-    <item
-        jar="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/classes-6e3e68527c84ec3020b0716f96be688defe8699c.jar" />
-    </item>
-    <item
-        jar="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/classes-736edd547507e324f81c71ae86068ca49881f5e7.jar" />
+        sha1="5e303a03d04e6788dddfa3655272580ae0fc13bb">
+        <dex dex="/home/rohan/smart_transport/Mobile_App/app/build/intermediates/pre-dexed/debug/json-simple-1.1-abe18fdb7d7b5e2a96534baa3d8a375d77d1120c.jar" />
     </item>
 
 </items>

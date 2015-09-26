@@ -3,7 +3,6 @@ package com.example.rohan.SmartTransport;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,13 +17,10 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -32,8 +28,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
-import butterknife.OnItemClick;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 
@@ -49,6 +43,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     private TimePicker end_time;
     private static final String API_KEY = "AIzaSyCrhtfK-7AtsHzHUpm2njNke8TD4M3SpmM";
     private final String USER_AGENT = "Mozilla/5.0";
+    private String[] loc_coords;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -73,18 +69,46 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 //String full_name = fullname.getText().toString();
                 String phno = mob_no.getText().toString();
                 int hour_start = start_time.getCurrentHour();
+
                 int minutes_start = start_time.getCurrentMinute();
                 int hour_end = end_time.getCurrentHour();
                 int minutes_end = end_time.getCurrentMinute();
                 String home_location = autoCompView_start.getText().toString();
+                String end_location = autoCompView_end.getText().toString();
+                String[] home_coords = new String[2] ;
+                String[] end_coords = new String[2];
+                try
+                {
+                    JSONParser1 jsonParser1 = new JSONParser1(home_location);
+                    loc_coords = jsonParser1.process();
+                    home_coords[0]= loc_coords[0];
+                    home_coords[1] = loc_coords[1];
+
+                    jsonParser1 = new JSONParser1(end_location);
+                    loc_coords = jsonParser1.process();
+                    end_coords[0]= loc_coords[0];
+                    end_coords[1] = loc_coords[1];
+//                    for(String i: home_coords)
+//                    {
+//                        System.out.println(i);
+//                    }
+//                    for(String i: end_coords)
+//                    {
+//                        System.out.println(i);
+//                    }
+                }
+                catch (Exception e)
+                {
+                    System.out.println("ERROR");
+                }
                 String office_location = autoCompView_end.getText().toString();
-                String send_data = "{\"mobile\":\""+phno+"\",\"sourceLocation\":{\"latitude\":1,\"longitude\":2,\"address\":\""+home_location+"\"},\"destinationLocation\":{\"latitude\":3,\"longitude\":4,\"address\":\""+office_location+"\"},\"transportType\":\"COMMUTE\",\"sourceTime\":{\"hour\":"+hour_start+",\"minute\":"+minutes_start+"},\"destinationTime\":{\"hour\":"+hour_end+",\"minute\":"+minutes_end+"}}";
-//                String send_data = "{\"mobile\":\"9988776654\",\"sourceLocation\":{\"latitude\":1,\"longitude\":2,\"address\":\"source address\"},\"destinationLocation\":{\"latitude\":3,\"longitude\":4,\"address\":\"destination address\"},\"transportType\":\"COMMUTE\",\"sourceTime\":{\"hour\":9,\"minute\":0},\"destinationTime\":
+                String send_data = "{\"mobile\":\""+phno+"\",\"sourceLocation\":{\"latitude\":"+home_coords[0]+",\"longitude\":"+home_coords[1]+",\"address\":\""+home_location+"\"},\"destinationLocation\":{\"latitude\":"+end_coords[0]+",\"longitude\":"+end_coords[1]+",\"address\":\""+office_location+"\"},\"transportType\":\"COMMUTE\",\"sourceTime\":{\"hour\":"+hour_start+",\"minute\":"+minutes_start+"},\"destinationTime\":{\"hour\":"+hour_end+",\"minute\":"+minutes_end+"}}";
+//              String send_data = "{\"mobile\":\"9988776654\",\"sourceLocation\":{\"latitude\":1,\"longitude\":2,\"address\":\"source address\"},\"destinationLocation\":{\"latitude\":3,\"longitude\":4,\"address\":\"destination address\"},\"transportType\":\"COMMUTE\",\"sourceTime\":{\"hour\":9,\"minute\":0},\"destinationTime\":
 
                 try
                 {
                     System.out.println(hour_end);
-                    new makeGETRequest().execute(send_data);
+                    new makeSubscriptionRequest().execute(send_data);
                 }
                 catch(Exception e)
                 {
@@ -95,12 +119,11 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         });
     }
 
-    class makeGETRequest extends AsyncTask<String,Void,String>
+    class makeSubscriptionRequest extends AsyncTask<String,Void,String>
     {
         protected String doInBackground(String... urls) {
             try {
                 String send_data = urls[0];
-                System.out.println(urls[0]);
                 String url = "http://10.20.240.106:8080/smart_transport/user/subscribe?requestJson="+URLEncoder.encode(send_data,"UTF-8");
                 Log.e("URL",url);
 
@@ -133,12 +156,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             }
         }
 
-        protected void onPostExecute() {
 
-            System.out.println("Bye");
-
-        }
     }
+
+
 
 //    public void makeGETRequest(String name, String phno, int hour, int minutes, String home_location, String end_location) throws Exception
 //    {
