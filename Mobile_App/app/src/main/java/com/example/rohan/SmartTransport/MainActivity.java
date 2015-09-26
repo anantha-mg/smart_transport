@@ -1,7 +1,10 @@
 package com.example.rohan.SmartTransport;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,10 +54,8 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         setContentView(R.layout.activity_login);
         final AutoCompleteTextView autoCompView_start = (AutoCompleteTextView) findViewById(R.id.autocomplete_start);
         final AutoCompleteTextView autoCompView_end = (AutoCompleteTextView) findViewById(R.id.autocomplete_end);
-
         autoCompView_start.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         autoCompView_start.setOnItemClickListener(this);
-
         autoCompView_end.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
         autoCompView_end.setOnItemClickListener(this);
         fullname = (TextView)findViewById(R.id.input_name);
@@ -67,7 +68,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
             @Override
             public void onClick(View v) {
                 //String full_name = fullname.getText().toString();
-                String phno = mob_no.getText().toString();
+                final String phno = mob_no.getText().toString();
                 int hour_start = start_time.getCurrentHour();
 
                 int minutes_start = start_time.getCurrentMinute();
@@ -81,21 +82,13 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 {
                     JSONParser1 jsonParser1 = new JSONParser1(home_location);
                     loc_coords = jsonParser1.process();
-                    home_coords[0]= loc_coords[0];
-                    home_coords[1] = loc_coords[1];
+                    home_coords[0]= String.valueOf((long)Double.parseDouble(loc_coords[0]));
 
+                    home_coords[1] = String.valueOf((long)Double.parseDouble(loc_coords[0]));
                     jsonParser1 = new JSONParser1(end_location);
                     loc_coords = jsonParser1.process();
-                    end_coords[0]= loc_coords[0];
-                    end_coords[1] = loc_coords[1];
-//                    for(String i: home_coords)
-//                    {
-//                        System.out.println(i);
-//                    }
-//                    for(String i: end_coords)
-//                    {
-//                        System.out.println(i);
-//                    }
+                    end_coords[0]= String.valueOf((long)Double.parseDouble(loc_coords[0]));
+                    end_coords[1] = String.valueOf((long)Double.parseDouble(loc_coords[1]));
                 }
                 catch (Exception e)
                 {
@@ -103,28 +96,38 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 }
                 String office_location = autoCompView_end.getText().toString();
                 String send_data = "{\"mobile\":\""+phno+"\",\"sourceLocation\":{\"latitude\":"+home_coords[0]+",\"longitude\":"+home_coords[1]+",\"address\":\""+home_location+"\"},\"destinationLocation\":{\"latitude\":"+end_coords[0]+",\"longitude\":"+end_coords[1]+",\"address\":\""+office_location+"\"},\"transportType\":\"COMMUTE\",\"sourceTime\":{\"hour\":"+hour_start+",\"minute\":"+minutes_start+"},\"destinationTime\":{\"hour\":"+hour_end+",\"minute\":"+minutes_end+"}}";
-//              String send_data = "{\"mobile\":\"9988776654\",\"sourceLocation\":{\"latitude\":1,\"longitude\":2,\"address\":\"source address\"},\"destinationLocation\":{\"latitude\":3,\"longitude\":4,\"address\":\"destination address\"},\"transportType\":\"COMMUTE\",\"sourceTime\":{\"hour\":9,\"minute\":0},\"destinationTime\":
-
                 try
                 {
-                    System.out.println(hour_end);
                     new makeSubscriptionRequest().execute(send_data);
                 }
                 catch(Exception e)
                 {
                     System.out.println(e.fillInStackTrace());
                 }
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Successful");
 
+                alertDialog.setMessage("Subscription Successful!");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent intent = new Intent(MainActivity.this, BookingActivity.class);
+                                intent.putExtra("Mobile Number",phno);
+                                startActivity(intent);
+
+                            }
+                        });
+                alertDialog.show();
             }
         });
     }
-
     class makeSubscriptionRequest extends AsyncTask<String,Void,String>
     {
         protected String doInBackground(String... urls) {
             try {
                 String send_data = urls[0];
-                String url = "http://10.20.240.106:8080/smart_transport/user/subscribe?requestJson="+URLEncoder.encode(send_data,"UTF-8");
+                String url = "http://10.20.242.61:8080/smart_transport/user/subscribe?requestJson="+URLEncoder.encode(send_data,"UTF-8");
                 Log.e("URL",url);
 
                 URL obj = new URL(url);
@@ -155,12 +158,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                 return null;
             }
         }
-
-
     }
-
-
-
 //    public void makeGETRequest(String name, String phno, int hour, int minutes, String home_location, String end_location) throws Exception
 //    {
 //        String url = "http://10.20.240.106:8080/smart_transport/user/subscribe";
@@ -322,7 +320,6 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Cannot process JSON results", e);
         }
-
         return resultList;
     }
 }
