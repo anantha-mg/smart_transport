@@ -22,6 +22,6 @@ class UserController {
 
         user.save(flush: true, failOnError: true)
 
-        render "Thanks for subscribing to SmartTransport service"
+        render "Success"
     }
 }

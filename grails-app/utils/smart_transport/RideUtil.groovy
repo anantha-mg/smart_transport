@@ -10,6 +10,7 @@ class RideUtil {
 
     public static synchronized HashMap<String,RideIdAndRideType> matchingRideMap = new HashMap<String,RideIdAndRideType>()
 
+    public static String productsEndPoint = "http://sandbox-t.olacabs.com/v1/products";
 
     public static synchronized joinRide(mobile, rideId, rideType) {
 
@@ -34,6 +35,35 @@ class RideUtil {
         ride.setRouteOfLocations(locationIds)
 
         ride.save(flush:true, failOnError: true)
+
+    }
+
+    public static int findSharingBenefits(Location originalStart, Location originalEnd, Location newStart, Location newEnd) {
+        // assuming A->C->B->D case
+
+        double dist = findDistance(originalStart.latitude, originalStart.longitude, originalEnd.latitude, originalEnd.longitude)
+        double totalDist = findDistance(newStart.latitude, newStart.longitude, newEnd.latitude, newEnd.longitude)
+
+        double originalPrice = dist * 10;
+        double totalPrice = totalDist * 10; // assuming flat price of Rs 10 per km instead of slabs for demo
+
+        return (dist*totalPrice)/totalDist - originalPrice;
+
+    }
+
+    private static double findDistance(double pickUpLat, double pickUpLng, double dropLat, double dropLng){
+
+        String urlParams = "pickup_lat=" + pickUpLat  + "&pickup_lng=" + pickUpLng + "&category=sedan&drop_lat= " + dropLat + "&drop_lng=" + dropLng;
+
+        try {
+            String estimatesJson = Util.sendRequest(productsEndPoint, urlParams);
+            System.out.println(estimatesJson);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 1.0;//fixme
 
     }
 

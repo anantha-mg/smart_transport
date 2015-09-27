@@ -20,10 +20,10 @@ public class TestUtil {
         String pickUpLng = "77.642600";
 
         String urlParams = "pickup_lat=" + pickUpLat + "&pickup_lng=" + pickUpLng + "&pickup_mode=NOW&category=sedan";
-        //urlParams = "pickup_lat=12.950072&pickup_lng=77.642684&category=sedan";
+        urlParams = "pickup_lat=12.950072&pickup_lng=77.642684&category=sedan&drop_lat=12.994847&drop_lng=77.666201";
 
         try {
-            String bookingJson = Util.sendRequest(bookingEndPoint, urlParams);
+            String bookingJson = Util.sendRequest(productsEndPoint, urlParams);
             Booking booking = gson.fromJson(bookingJson, Booking.class);
             System.out.println(booking.crn);
 
