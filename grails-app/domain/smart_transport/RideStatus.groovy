@@ -5,8 +5,7 @@ package smart_transport
  */
 enum RideStatus {
 
-    INITIATED, // new ride initiated - for commute or transportation of goods
-    WAITING_FOR_SHARE, // waiting for others to share ride
+    WAITING_FOR_SHARE, // initiated - waiting for others to share ride
     PENDING_BOOKING, // waiting for Booking cab
     BOOKED, // Cab booked
 

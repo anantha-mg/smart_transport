@@ -8,7 +8,7 @@ class RideUtil {
     private static final MAX_COMMUTERS_PER_RIDE = 2
     private static final MAX_DELIVERY_PER_RIDE = 2 // This needs to be more - like 10. But for demo, since we have 3 devices, we are fixing 3 bookings for shared delivery
 
-    public static HashMap<String,RideIdAndRideType> matchingRideMap = new HashMap<String,RideIdAndRideType>()
+    public static synchronized HashMap<String,RideIdAndRideType> matchingRideMap = new HashMap<String,RideIdAndRideType>()
 
 
     public static synchronized joinRide(mobile, rideId, rideType) {

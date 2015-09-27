@@ -8,7 +8,7 @@ class RideFinderJob {
     }
 
     def execute() {
-        List<Ride> rides = Ride.findAllByRideStatus(RideStatus.INITIATED)
+        List<Ride> rides = Ride.findAllByRideStatus(RideStatus.WAITING_FOR_SHARE)
 
         rides.each { ride->
             Long rideInitiatorUserId = ride.getSubscribers().get(0)
@@ -25,7 +25,7 @@ class RideFinderJob {
 
         User rideInitiator = User.findById(rideInitiatorUserId)
 
-        def users = User.findAll()
+        def users = User.findAllByTransportType(rideInitiator.transportType)
         users.each { user->
 
             if(user.getId() != rideInitiatorUserId){ // we cannot share ride with same user and send notif to the user who started ride
@@ -58,7 +58,7 @@ class RideFinderJob {
 
                         if(isRideSharable){
                             //RideUtil.joinRide(user.mobile, rideId, RideType.RETURN)
-                            RideUtil.matchingRideMap.put(user.mobile, new RideUtil.RideIdAndRideType(rideId: rideId, rideType: RideType.RETURN))
+                            RideUtil.matchingRideMap.put(user.mobile, new RideIdAndRideType(rideId: rideId, rideType: RideType.RETURN))
                         }
                     }
                 }

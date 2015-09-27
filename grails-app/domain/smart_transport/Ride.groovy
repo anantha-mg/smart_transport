@@ -3,6 +3,9 @@ package smart_transport
 class Ride {
 
     static constraints = {
+
+        bookingDetails(blank:true, nullable:true)
+
     }
 
     static mapping = {
@@ -20,6 +23,7 @@ class Ride {
     RideStatus rideStatus;
 
 
+    String bookingDetails
 
     /**
      *
